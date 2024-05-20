@@ -5,13 +5,13 @@ let operator = "+";
 function operate (firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":
-            add(firstNumber, secondNumber);
+            return add(firstNumber, secondNumber);
         case "-":
-            subtract(firstNumber, secondNumber);
+            return subtract(firstNumber, secondNumber);
         case "*":
-            multiply(firstNumber, secondNumber);
+            return multiply(firstNumber, secondNumber);
         case "/":
-            divide(firstNumber, secondNumber);
+            return divide(firstNumber, secondNumber);
     }
 
 }
@@ -37,6 +37,6 @@ function multiply (...arr) {
 
 function divide (...arr) {
     return arr.reduce(
-        (total, current) => total / current, arr[0],
+        (total, current) => total / current, arr[0] * arr[0],
     );
 }
