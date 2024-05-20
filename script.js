@@ -25,61 +25,183 @@ const clearBtn = document.querySelector(".clear-btn");
 const equation = document.querySelector(".equation");
 const result = document.querySelector(".result");
 
-//clear divs on click
+//initialize important variables
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
+let wasOperatorPressed = false;
+
+//listen to all number buttons
+zero.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += zero.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += zero.textContent;
+    }
+        changeTheEquation();
+});
+
+one.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += one.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += one.textContent;
+    }
+        changeTheEquation();
+});
+
+two.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += two.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += two.textContent;
+    }
+        changeTheEquation();
+});
+
+three.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += three.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += three.textContent;
+    }
+        changeTheEquation();
+});
+
+four.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += four.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += four.textContent;
+    }
+        changeTheEquation();
+});
+
+five.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += five.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += five.textContent;
+    }
+        changeTheEquation();
+});
+
+six.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += six.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += six.textContent;
+    }
+        changeTheEquation();
+});
+
+seven.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += seven.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += seven.textContent;
+    }
+        changeTheEquation();
+});
+
+eight.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += eight.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += eight.textContent;
+    }
+        changeTheEquation();
+});
+
+nine.addEventListener( "click", () => {
+    console.log(wasOperatorPressed);
+    if (!wasOperatorPressed) {
+        firstNumber += nine.textContent;
+    }
+    if (wasOperatorPressed) {
+        secondNumber += nine.textContent;
+    }
+        changeTheEquation();
+});
+
+//clear and values divs on click
 clearBtn.addEventListener( "click", () => {
-    equation.textContent = "";
-    result.textContent = "";
+    wasOperatorPressed = false;
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    equation.textContent = " ";
+    result.textContent = " ";
 });
 
 //change operator
 addBtn.addEventListener( "click", () => {
     operator = "+";
-    changeTheDiv();
+    wasOperatorPressed = true;
+    changeTheEquation();
 });
 
 subtractBtn.addEventListener( "click", () => {
     operator = "-";
-    changeTheDiv();
+    wasOperatorPressed = true;
+    changeTheEquation();
 });
 
 multiplyBtn.addEventListener( "click", () => {
     operator = "*";
-    changeTheDiv();
+    wasOperatorPressed = true;
+    changeTheEquation();
 });
 
 divideBtn.addEventListener( "click", () => {
     operator = "/";
-    changeTheDiv();
+    wasOperatorPressed = true;
+    changeTheEquation();
 });
 
-//change the display of equation
-function changeTheDiv () {
-    equation.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+//change the equation and reverse the operators
+function changeTheEquation () {
+    equation.textContent = `${parseInt(firstNumber)} ${operator} ${secondNumber !== '' ? parseInt(secondNumber) : ''}`;
 }
 
 //calculate
 equalsBtn.addEventListener( "click", () => {
     const resultOfEquation = operate(firstNumber, secondNumber, operator);
-    console.log(resultOfEquation);
+    wasOperatorPressed = false;
     result.textContent = `${resultOfEquation}`;
 } );
 
-//initialize important variables
-let firstNumber = 3;
-let secondNumber = 5;
-let operator = "+";
+
 
 //choose correct mathematical operation
 function operate (firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":
-            return add(firstNumber, secondNumber);
+            return add(parseInt(firstNumber), parseInt(secondNumber));
         case "-":
-            return subtract(firstNumber, secondNumber);
+            return subtract(parseInt(firstNumber), parseInt(secondNumber));
         case "*":
-            return multiply(firstNumber, secondNumber);
+            return multiply(parseInt(firstNumber), parseInt(secondNumber));
         case "/":
-            return divide(firstNumber, secondNumber);
+            return divide(parseInt(firstNumber), parseInt(secondNumber));
     }
 
 }
