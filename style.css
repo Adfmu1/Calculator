@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.screen {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+
+.clear-btn {
+    padding: 10px 20px;
+}
+
+.equation {
+    display: flex;
+    height: 40px;
+    padding: 10px 40px;
+    border: 1px solid black;
+    align-items: center;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 220px;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.numbers button {
+    width: 70px;
+    height: 30px;
+}
+
+.zero {
+    width: 220px;
+    height: 30px;
+}
