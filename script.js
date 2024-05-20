@@ -1,7 +1,41 @@
+//select all buttons
+//numbers buttons
+const zero = document.querySelector(".zero");
+const one = document.querySelector(".one");
+const two = document.querySelector(".two");
+const three = document.querySelector(".three");
+const four = document.querySelector(".four");
+const five = document.querySelector(".five");
+const six = document.querySelector(".six");
+const seven = document.querySelector(".seven");
+const eight = document.querySelector(".eight");
+const nine = document.querySelector(".nine");
+
+//operators buttons
+const addBtn = document.querySelector(".add");
+const subtractBtn = document.querySelector(".subtract");
+const multiplyBtn = document.querySelector(".multiply");
+const divideBtn = document.querySelector(".divide");
+
+//equals and clear equasion button
+const equalsBtn = document.querySelector(".equals-btn");
+const clearBtn = document.querySelector(".clear-btn");
+
+//divs and texts for equation
+const equation = document.querySelector(".equation");
+const result = document.querySelector(".result");
+
+clearBtn.addEventListener( "click", () => {
+    equation.textContent = "";
+    result.textContent = "";
+});
+
+//initialize important variables
 let firstNumber = 3;
 let secondNumber = 5;
 let operator = "+";
 
+//choose correct mathematical operation
 function operate (firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":
@@ -16,6 +50,7 @@ function operate (firstNumber, secondNumber, operator) {
 
 }
 
+//mathematical operations
 function add (...arr) {
     return arr.reduce(
         (total, current) => total + current, 0,
