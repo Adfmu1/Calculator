@@ -25,10 +25,44 @@ const clearBtn = document.querySelector(".clear-btn");
 const equation = document.querySelector(".equation");
 const result = document.querySelector(".result");
 
+//clear divs on click
 clearBtn.addEventListener( "click", () => {
     equation.textContent = "";
     result.textContent = "";
 });
+
+//change operator
+addBtn.addEventListener( "click", () => {
+    operator = "+";
+    changeTheDiv();
+});
+
+subtractBtn.addEventListener( "click", () => {
+    operator = "-";
+    changeTheDiv();
+});
+
+multiplyBtn.addEventListener( "click", () => {
+    operator = "*";
+    changeTheDiv();
+});
+
+divideBtn.addEventListener( "click", () => {
+    operator = "/";
+    changeTheDiv();
+});
+
+//change the display of equation
+function changeTheDiv () {
+    equation.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+}
+
+//calculate
+equalsBtn.addEventListener( "click", () => {
+    const resultOfEquation = operate(firstNumber, secondNumber, operator);
+    console.log(resultOfEquation);
+    result.textContent = `${resultOfEquation}`;
+} );
 
 //initialize important variables
 let firstNumber = 3;
@@ -58,7 +92,6 @@ function add (...arr) {
 }
 
 function subtract (...arr) {
-    console.log(arr[0]);
     return arr.reduce(
         (total, current) => total - current, arr[0] * 2,
     );
