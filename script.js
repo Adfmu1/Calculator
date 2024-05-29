@@ -104,15 +104,39 @@ function changeTheEquation () {
 //calculate
 equalsBtn.addEventListener( "click", () => {
     //numbers will be 8 digits long (excluding dot)
-    const resultOfEquation = operate(firstNumber, secondNumber, operator).toString().slice(0, 9);
-    wasOperatorPressed = false;
-    firstNumber = `${resultOfEquation}`;
-    secondNumber = "";
-    operator = "";
+    let resultOfEquation = operate(firstNumber, secondNumber, operator);
+    if (!isFinite(resultOfEquation)) {
+        alert("CANT DIVIDE BY 0");
 
-    lastResult = resultOfEquation;
+        firstNumber = "";
+        secondNumber = "";
+        operator = "";
+        wasOperatorPressed = false;
+    }
+    else if (isNaN(resultOfEquation) && firstNumber != "") {
+        result.textContent = firstNumber;
 
-    result.textContent = `${resultOfEquation}`;
+        lastResult = firstNumber;
+    }
+    else if (isNaN(resultOfEquation)) {
+        firstNumber = "";
+        secondNumber = "";
+        operator = "";
+        wasOperatorPressed = false;
+
+        result.textContent = "ERROR";
+    }
+    else {
+        resultOfEquation = resultOfEquation.toString().slice(0, 9)
+        wasOperatorPressed = false;
+        firstNumber = `${resultOfEquation}`;
+        secondNumber = "";
+        operator = "";
+    
+        lastResult = resultOfEquation;
+    
+        result.textContent = `${resultOfEquation}`;
+    }
 } );
 
 
