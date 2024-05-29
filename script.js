@@ -35,7 +35,7 @@ let lastResult = "";
 const buttonsArr = [zero, one, two, three, four, five, six, seven, eight, nine];
 
 //listen to all buttons
-for (let i = 0; i < buttonsArr.length - 1; i++) {
+for (let i = 0; i < buttonsArr.length ; i++) {
     buttonsArr[i].addEventListener( "click", () => {
         setNumbers(buttonsArr[i]);
 
@@ -105,7 +105,7 @@ function changeTheEquation () {
 equalsBtn.addEventListener( "click", () => {
     //numbers will be 8 digits long (excluding dot)
     let resultOfEquation = operate(firstNumber, secondNumber, operator);
-    if (!isFinite(resultOfEquation)) {
+    if (parseInt(secondNumber) == 0 && operator == "/") {
         alert("CANT DIVIDE BY 0");
 
         firstNumber = "";
