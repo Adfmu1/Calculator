@@ -50,9 +50,17 @@ body {
     height: 30px;
 }
 
-.zero {
+.zero-dot {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     width: 220px;
     height: 30px;
+}
+
+.zero-dot button {
+    text-align: center;
+    width: 105px;
 }
 
 .buttons {
