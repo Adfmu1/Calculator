@@ -186,6 +186,9 @@ function changeTheEquation () {
 equalsBtn.addEventListener( "click", () => {
     const resultOfEquation = operate(firstNumber, secondNumber, operator);
     wasOperatorPressed = false;
+    firstNumber = `${resultOfEquation}`;
+    secondNumber = "";
+    operator = "";
     result.textContent = `${resultOfEquation}`;
 } );
 
