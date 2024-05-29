@@ -10,6 +10,7 @@ const six = document.querySelector(".six");
 const seven = document.querySelector(".seven");
 const eight = document.querySelector(".eight");
 const nine = document.querySelector(".nine");
+const dot = document.querySelector(".dot");
 
 //operators buttons
 const addBtn = document.querySelector(".add");
@@ -31,10 +32,12 @@ let secondNumber = "";
 let operator = "";
 let wasOperatorPressed = false;
 let lastResult = "";
-
-const buttonsArr = [zero, one, two, three, four, five, six, seven, eight, nine];
+let wasDotPressecFirstNumber = false;
+let wasDotPressedSecondNumber = false;
 
 //listen to all buttons
+const buttonsArr = [zero, one, two, three, four, five, six, seven, eight, nine];
+
 for (let i = 0; i < buttonsArr.length ; i++) {
     buttonsArr[i].addEventListener( "click", () => {
         setNumbers(buttonsArr[i]);
@@ -43,6 +46,19 @@ for (let i = 0; i < buttonsArr.length ; i++) {
     })
     
 }
+
+dot.addEventListener( "click", () => {
+    if (!wasOperatorPressed && !wasDotPressecFirstNumber) {
+        firstNumber += ".";
+        wasDotPressecFirstNumber = true;
+    }
+    else if (wasOperatorPressed && !wasDotPressedSecondNumber) {
+        secondNumber += ".";
+        wasDotPressedSecondNumber = true;
+    }
+
+    changeTheEquation();
+})
 
 function setNumbers (number) {
     if (!wasOperatorPressed && firstNumber == lastResult) {
@@ -61,6 +77,7 @@ function setNumbers (number) {
 
 //clear and values divs on click
 clearBtn.addEventListener( "click", () => {
+
     wasOperatorPressed = false;
     firstNumber = "";
     secondNumber = "";
@@ -98,19 +115,17 @@ function respondToOperator (oper) {
 
 //change the equation and reverse the operators
 function changeTheEquation () {
-    equation.textContent = `${parseInt(firstNumber)} ${operator} ${secondNumber !== '' ? parseInt(secondNumber) : ''}`;
+    equation.textContent = `${ (firstNumber)} ${operator} ${secondNumber !== '' ? (secondNumber) : '' }`;
 }
 
 //calculate
 equalsBtn.addEventListener( "click", () => {
     //numbers will be 8 digits long (excluding dot)
     let resultOfEquation = operate(firstNumber, secondNumber, operator);
-    if (parseInt(secondNumber) == 0 && operator == "/") {
+    if (parseFloat(secondNumber) == 0 && operator == "/") {
         alert("CANT DIVIDE BY 0");
 
         firstNumber = "";
-        secondNumber = "";
-        operator = "";
         wasOperatorPressed = false;
     }
     else if (isNaN(resultOfEquation) && firstNumber != "") {
@@ -120,8 +135,6 @@ equalsBtn.addEventListener( "click", () => {
     }
     else if (isNaN(resultOfEquation)) {
         firstNumber = "";
-        secondNumber = "";
-        operator = "";
         wasOperatorPressed = false;
 
         result.textContent = "ERROR";
@@ -130,13 +143,17 @@ equalsBtn.addEventListener( "click", () => {
         resultOfEquation = resultOfEquation.toString().slice(0, 9)
         wasOperatorPressed = false;
         firstNumber = `${resultOfEquation}`;
-        secondNumber = "";
-        operator = "";
     
         lastResult = resultOfEquation;
     
         result.textContent = `${resultOfEquation}`;
     }
+
+    wasDotPressecFirstNumber = false;
+    wasDotPressedSecondNumber = false;
+    operator = "";
+    secondNumber = "";
+
 } );
 
 
@@ -145,13 +162,13 @@ equalsBtn.addEventListener( "click", () => {
 function operate (firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":
-            return add(parseInt(firstNumber), parseInt(secondNumber));
+            return add(parseFloat(firstNumber), parseFloat(secondNumber));
         case "-":
-            return subtract(parseInt(firstNumber), parseInt(secondNumber));
+            return subtract(parseFloat(firstNumber), parseFloat(secondNumber));
         case "*":
-            return multiply(parseInt(firstNumber), parseInt(secondNumber));
+            return multiply(parseFloat(firstNumber), parseFloat(secondNumber));
         case "/":
-            return divide(parseInt(firstNumber), parseInt(secondNumber));
+            return divide(parseFloat(firstNumber), parseFloat(secondNumber));
     }
 
 }
