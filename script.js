@@ -65,11 +65,14 @@ function setNumbers (number) {
         firstNumber = number.textContent;
     }
     else if (!wasOperatorPressed && firstNumber != lastResult) {
-        firstNumber += number.textContent;
+        if ( (firstNumber.length < 8) || (firstNumber.length < 9 && firstNumber.includes(".")) ) {
+            firstNumber += number.textContent;
+        }
     }
-    
-    if (wasOperatorPressed) {
-        secondNumber += number.textContent;
+    else if (wasOperatorPressed) {
+        if ( (secondNumber.length < 8) || (secondNumber.length < 9 && secondNumber.includes(".")) ) {
+            secondNumber += number.textContent;
+        }
     }
 
     result.textContent = ""
@@ -121,7 +124,7 @@ function changeTheEquation () {
 //calculate
 equalsBtn.addEventListener( "click", () => {
     //numbers will be 8 digits long (excluding dot)
-    let resultOfEquation = operate(firstNumber, secondNumber, operator);
+    let resultOfEquation = operate(firstNumber, secondNumber, operator).toString();
     if (parseFloat(secondNumber) == 0 && operator == "/") {
         alert("CANT DIVIDE BY 0");
 
@@ -140,9 +143,21 @@ equalsBtn.addEventListener( "click", () => {
         result.textContent = "ERROR";
     }
     else {
-        resultOfEquation = resultOfEquation.toString().slice(0, 9)
+        if (resultOfEquation.length > 10) {
+            resultOfEquation = "";
+            firstNumber = "";
+            alert("TOO BIG NUMBER");
+        }
+        else if (resultOfEquation.includes(".")) {
+            firstNumber = `${resultOfEquation}`;
+            resultOfEquation = resultOfEquation.slice(0, 9);
+        }
+        else {
+            firstNumber = `${resultOfEquation}`;
+            resultOfEquation = resultOfEquation.slice(0, 8);
+        }
+
         wasOperatorPressed = false;
-        firstNumber = `${resultOfEquation}`;
     
         lastResult = resultOfEquation;
     
