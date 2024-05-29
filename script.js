@@ -30,117 +30,34 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 let wasOperatorPressed = false;
+let lastResult = "";
 
-//listen to all number buttons
-zero.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += zero.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += zero.textContent;
-    }
-        changeTheEquation();
-});
+const buttonsArr = [zero, one, two, three, four, five, six, seven, eight, nine];
 
-one.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += one.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += one.textContent;
-    }
-        changeTheEquation();
-});
+//listen to all buttons
+for (let i = 0; i < buttonsArr.length - 1; i++) {
+    buttonsArr[i].addEventListener( "click", () => {
+        setNumbers(buttonsArr[i]);
 
-two.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += two.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += two.textContent;
-    }
         changeTheEquation();
-});
+    })
+    
+}
 
-three.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += three.textContent;
+function setNumbers (number) {
+    if (!wasOperatorPressed && firstNumber == lastResult) {
+        firstNumber = number.textContent;
     }
+    else if (!wasOperatorPressed && firstNumber != lastResult) {
+        firstNumber += number.textContent;
+    }
+    
     if (wasOperatorPressed) {
-        secondNumber += three.textContent;
+        secondNumber += number.textContent;
     }
-        changeTheEquation();
-});
 
-four.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += four.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += four.textContent;
-    }
-        changeTheEquation();
-});
-
-five.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += five.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += five.textContent;
-    }
-        changeTheEquation();
-});
-
-six.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += six.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += six.textContent;
-    }
-        changeTheEquation();
-});
-
-seven.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += seven.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += seven.textContent;
-    }
-        changeTheEquation();
-});
-
-eight.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += eight.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += eight.textContent;
-    }
-        changeTheEquation();
-});
-
-nine.addEventListener( "click", () => {
-    console.log(wasOperatorPressed);
-    if (!wasOperatorPressed) {
-        firstNumber += nine.textContent;
-    }
-    if (wasOperatorPressed) {
-        secondNumber += nine.textContent;
-    }
-        changeTheEquation();
-});
+    result.textContent = ""
+}
 
 //clear and values divs on click
 clearBtn.addEventListener( "click", () => {
@@ -148,34 +65,36 @@ clearBtn.addEventListener( "click", () => {
     firstNumber = "";
     secondNumber = "";
     operator = "";
-    equation.textContent = " ";
-    result.textContent = " ";
+    equation.textContent = "";
+    result.textContent = "";
 });
 
 //change operator
 addBtn.addEventListener( "click", () => {
-    operator = "+";
-    wasOperatorPressed = true;
-    changeTheEquation();
+    respondToOperator(addBtn);
 });
 
 subtractBtn.addEventListener( "click", () => {
-    operator = "-";
-    wasOperatorPressed = true;
-    changeTheEquation();
+    respondToOperator(subtractBtn);
 });
 
 multiplyBtn.addEventListener( "click", () => {
-    operator = "*";
-    wasOperatorPressed = true;
-    changeTheEquation();
+    respondToOperator(multiplyBtn);
 });
 
 divideBtn.addEventListener( "click", () => {
-    operator = "/";
-    wasOperatorPressed = true;
-    changeTheEquation();
+    respondToOperator(divideBtn);
 });
+
+//creates adequate response to pressed operator
+function respondToOperator (oper) {
+    operator = oper.textContent;
+    wasOperatorPressed = true;
+
+    changeTheEquation();
+    
+    result.textContent = "";
+}
 
 //change the equation and reverse the operators
 function changeTheEquation () {
@@ -184,11 +103,15 @@ function changeTheEquation () {
 
 //calculate
 equalsBtn.addEventListener( "click", () => {
-    const resultOfEquation = operate(firstNumber, secondNumber, operator);
+    //numbers will be 8 digits long (excluding dot)
+    const resultOfEquation = operate(firstNumber, secondNumber, operator).toString().slice(0, 9);
     wasOperatorPressed = false;
     firstNumber = `${resultOfEquation}`;
     secondNumber = "";
     operator = "";
+
+    lastResult = resultOfEquation;
+
     result.textContent = `${resultOfEquation}`;
 } );
 
